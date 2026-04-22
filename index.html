@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gerador de Imagens IA</title>
+</head>
+<body style="font-family: Arial; text-align: center; padding: 40px;">
+
+  <h1>Gerador de Imagens com IA</h1>
+
+  <textarea id="prompt" placeholder="Digite sua ideia..." rows="4" style="width: 300px;"></textarea>
+  <br><br>
+
+  <button onclick="gerar()">Gerar imagem</button>
+
+  <div id="resultado" style="margin-top: 20px;"></div>
+
+  <script>
+    async function gerar() {
+      const prompt = document.getElementById("prompt").value;
+
+      const resposta = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await resposta.json();
+
+      document.getElementById("resultado").innerHTML =
+        `<img src="${data.imageUrl}" width="300"/>`;
+    }
+  </script>
+
+</body>
+</html>
